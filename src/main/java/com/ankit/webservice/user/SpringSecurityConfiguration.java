@@ -2,6 +2,7 @@ package com.ankit.webservice.user;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -15,10 +16,10 @@ public class SpringSecurityConfiguration {
 		http.authorizeHttpRequests(auth->auth.anyRequest().authenticated());
 		
 		// define type of authentication ( basic auth )
-		http.httpBasic();
+		http.httpBasic(Customizer.withDefaults());
 		
 		// disable csrf because for post and put request usually we have to give csrf tokens
-		http.csrf().disable();
+		http.csrf(csrf->csrf.disable());
 		
 		return http.build();
 	}
